@@ -35,46 +35,73 @@ class ViewController: UIViewController {
     
     
     @IBAction func YStop(sender: UIButton) {
-        stop1 = String(Int(stop1)!+1)
+        var s = 0
+        var result = 0
+        s = Int(Ystop.text!)!
+        result = s + 1
+        stop1 = String(result)
         Ystop.text = stop1
     }
     
     @IBAction func YFoul(sender: UIButton) {
-        foul1 = String(Int(foul1)!+1)
+        var f = 0
+        var result = 0
+        f = Int(Yfoul.text!)!
+        result = f + 1
+        foul1 = String(result)
         Yfoul.text = foul1
     }
     
     @IBAction func YDel(sender: UIButton) {
-        mark1.text = che1
+        let m = Int(mark1.text!)
+        let result = m! - Int(che1)!
+        mark1.text = String(result)
+        
     }
     
     @IBAction func EStop(sender: UIButton) {
-        stop2 = String(Int(stop2)!+1)
+        var s = 0
+        var result = 0
+        s = Int(Estop.text!)!
+        result = s + 1
+        stop2 = String(result)
         Estop.text = stop2
     }
     
     @IBAction func EFoul(sender: UIButton) {
-        foul2 = String(Int(foul2)!+1)
-        Yfoul.text = foul2
+        var f = 0
+        var result = 0
+        f = Int(Efoul.text!)!
+        result = f + 1
+        foul2 = String(result)
+        Efoul.text = foul2
     }
-    
+
     @IBAction func EDel(sender: UIButton) {
-        mark1.text = che2
+        let m = Int(mark2.text!)
+        let result = m! - Int(che2)!
+        mark2.text = String(result)
     }
     
     @IBAction func Ymark(sender: UIButton) {
+        var m = 0
         let value = sender.currentTitle//提取每次取的值
+        m = Int(mark1.text!)!
         che1 = value!
-        operand1 = String(Int(operand1)!+Int(value!)!)
+        huan1 = m + Int(value!)!
+        operand1 = String(huan1)
+        //operand1 = String(Int(operand1)!+Int(value!)!)
         mark1.text = operand1
+        
     }
     
     @IBAction func Emark(sender: UIButton) {
+        var m = 0
         let value = sender.currentTitle//提取每次取的值
+        m = Int(mark2.text!)!
         che2 = value!
-        operand2 = String(Int(operand2)!+Int(value!)!)
-        //huancun2 = huancun2+Int(value!)!
-        //operand2 = String(huancun2)
+        huan2 = m + Int(value!)!
+        operand2 = String(huan2)
         mark2.text = operand2
     }
     
@@ -88,7 +115,30 @@ class ViewController: UIViewController {
         db.execute("create table if not exists t_user(uid integer primary key,uname varchar(20),mobile varchar(20))")
         //如果有数据则加载
         initUser()
+        
     }
+    
+    
+    @IBAction func reset(sender: UIButton) {
+        mark1.text = "0"
+        mark2.text = "0"
+        Estop.text = "0"
+        Efoul.text = "0"
+        Ystop.text = "0"
+        Yfoul.text = "0"
+        chang.text = "0"
+        operand1 = ""//缓存的字符串
+        operand2 = ""
+        huan1 = 0
+        huan2 = 0
+        stop1 = ""
+        stop2 = ""
+        foul1 = ""
+        foul2 = ""
+        che1 = ""
+        che2 = ""
+    }
+    
     
     //点击保存
     @IBAction func saveClicked(sender: AnyObject) {
