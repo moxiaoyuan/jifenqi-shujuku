@@ -516,6 +516,7 @@
 				C817EC011CE41FAE00507E90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C817EC021CE41FAE00507E90 /* Build configuration list for PBXNativeTarget "jifenqi-shujukuTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +525,7 @@
 				C817EC041CE41FAE00507E90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C817EC051CE41FAE00507E90 /* Build configuration list for PBXNativeTarget "jifenqi-shujukuUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +534,7 @@
 				C817EC071CE41FAE00507E90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

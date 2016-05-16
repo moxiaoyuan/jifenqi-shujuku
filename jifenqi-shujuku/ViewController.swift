@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var chang: UITextField!
     @IBOutlet weak var mark1: UITextField!
     @IBOutlet weak var mark2: UITextField!
+    //@IBOutlet weak var btn: UITextField!
     
     
     var operand1:String = ""//缓存的字符串
@@ -32,6 +33,8 @@ class ViewController: UIViewController {
     var foul2:String = ""
     var che1:String = ""
     var che2:String = ""
+    var cc:String = ""
+    
     
     
     @IBAction func YStop(sender: UIButton) {
@@ -105,14 +108,29 @@ class ViewController: UIViewController {
         mark2.text = operand2
     }
     
+    @IBAction func Changci(sender: UIButton) {
+        var c = 0
+        var result = 0
+        c = Int(Ystop.text!)!
+        result = c + 1
+        cc = String(result)
+        chang.text = cc
+    }
     
+    @IBAction func start(sender: UIButton) {
+        
+    }
+    
+    @IBAction func jishi(sender: UIButton) {
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //获取数据库实例
         db = SQLiteDB.sharedInstance()
         //如果表还不存在则创建表（其中uid为自增主键）
-        db.execute("create table if not exists t_user(uid integer primary key,uname varchar(20),mobile varchar(20))")
+        db.execute("create table if not exists t_users(uid integer primary key,uname varchar(20),mobile varchar(20),yifoul varchar(20),erfoul varchar(20),yistop varchar(20),erstop varchar(20))")
         //如果有数据则加载
         initUser()
         
@@ -142,26 +160,41 @@ class ViewController: UIViewController {
     
     //点击保存
     @IBAction func saveClicked(sender: AnyObject) {
-        saveUser()
+        saveUsers()
     }
     
     //从SQLite加载数据
     func initUser() {
-        let data = db.query("select * from t_user")
+        let data = db.query("select * from t_users")
         if data.count > 0 {
             //获取最后一行数据显示
-            let user = data[data.count - 1]
-            mark1.text = user["uname"] as? String
-            mark2.text = user["mobile"] as? String
+            let users = data[data.count - 1]
+            mark1.text = users["uname"] as? String
+            mark2.text = users["mobile"] as? String
+            Yfoul.text = users["yifoul"] as? String
+            Efoul.text = users["erfoul"] as? String
+            Ystop.text = users["yistop"] as? String
+            Estop.text = users["erstop"] as? String
+            let a = users["yifoul"] as? String
+            print(a)
+
         }
-    }
+        print("#####  \(data.count)")
+        print(data)
+            }
     
     //保存数据到SQLite
-    func saveUser() {
+    func saveUsers() {
         let uname = self.mark1.text!
         let mobile = self.mark2.text!
+        let yifoul = self.Yfoul.text!
+        let erfoul = self.Efoul.text!
+        let yistop = self.Ystop.text!
+        let erstop = self.Estop.text!
+
         //插入数据库，这里用到了esc字符编码函数，其实是调用bridge.m实现的
-        let sql = "insert into t_user(uname,mobile) values('\(uname)','\(mobile)')"
+        //let sql = "insert into t_user(uname,mobile) values('\(uname)','\(mobile)')"
+        let sql = "insert into t_users(uname,mobile,yifoul,erfoul,yistop,erstop) values('\(uname)','\(mobile)','\(yifoul)','\(erfoul)','\(yistop)','\(erstop)')"
         print("sql: \(sql)")
         //通过封装的方法执行sql
         let result = db.execute(sql)
