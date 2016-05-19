@@ -130,10 +130,10 @@ class ViewController: UIViewController {
         //获取数据库实例
         db = SQLiteDB.sharedInstance()
         //如果表还不存在则创建表（其中uid为自增主键）
+        //db.execute("delete from t_user")
         db.execute("create table if not exists t_users(uid integer primary key,uname varchar(20),mobile varchar(20),yifoul varchar(20),erfoul varchar(20),yistop varchar(20),erstop varchar(20))")
         //如果有数据则加载
-        initUser()
-        
+        initUsers()
     }
     
     
@@ -164,7 +164,7 @@ class ViewController: UIViewController {
     }
     
     //从SQLite加载数据
-    func initUser() {
+    func initUsers() {
         let data = db.query("select * from t_users")
         if data.count > 0 {
             //获取最后一行数据显示
@@ -175,8 +175,6 @@ class ViewController: UIViewController {
             Efoul.text = users["erfoul"] as? String
             Ystop.text = users["yistop"] as? String
             Estop.text = users["erstop"] as? String
-            let a = users["yifoul"] as? String
-            print(a)
 
         }
         print("#####  \(data.count)")
