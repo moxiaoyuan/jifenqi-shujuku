@@ -12,7 +12,6 @@ class ViewController: UIViewController {
     
     var db:SQLiteDB!
     
-    
     @IBOutlet weak var Estop: UITextField!
     @IBOutlet weak var Efoul: UITextField!
     @IBOutlet weak var Ystop: UITextField!
@@ -20,8 +19,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var chang: UITextField!
     @IBOutlet weak var mark1: UITextField!
     @IBOutlet weak var mark2: UITextField!
-    //@IBOutlet weak var btn: UITextField!
-    
+    @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var daojishi: UILabel!
     
     var operand1:String = ""//缓存的字符串
     var operand2:String = ""
@@ -34,7 +33,15 @@ class ViewController: UIViewController {
     var che1:String = ""
     var che2:String = ""
     var cc:String = ""
+    var timer:NSTimer!//定时器
+    var _time:Int = 720
+    var isStart:Int = 0
+    var timer2:NSTimer!//倒计时定时器
+    var _time2:Int = 1440
+    var isStart2:Int = 0
     
+    
+    @IBOutlet weak var jilu: UITextView!
     
     
     @IBAction func YStop(sender: UIButton) {
@@ -111,29 +118,69 @@ class ViewController: UIViewController {
     @IBAction func Changci(sender: UIButton) {
         var c = 0
         var result = 0
-        c = Int(Ystop.text!)!
+        c = Int(chang.text!)!
         result = c + 1
         cc = String(result)
         chang.text = cc
     }
     
+    
+    @IBOutlet weak var btStart: UIButton!
+    
     @IBAction func start(sender: UIButton) {
-        
+        if isStart == 0{
+            timer=NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("tickDown"), userInfo: nil, repeats: true)
+            isStart = 1
+            btStart.setTitle("暂停",forState:UIControlState.Normal)
+            }else{
+                timer.invalidate()//停止计时器
+                btStart.setTitle("开始",forState:UIControlState.Normal)
+            }
+    }
+    func tickDown()
+    {
+        _time -= 1
+        let sec = _time%60
+        let min = _time/60
+        time.text = String(min)+":"+String(sec)
+    }
+
+
+    @IBOutlet weak var btStart2: UIButton!
+
+    @IBAction func jishi(sender: UIButton) {
+        if isStart2 == 0{
+           timer2=NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("tick2Down"), userInfo: nil, repeats: true)
+            isStart2 = 1
+            btStart2.setTitle("暂停",forState:UIControlState.Normal)
+        }else{
+            timer2.invalidate()//停止计时器
+            btStart2.setTitle("开始",forState:UIControlState.Normal)
+        }
     }
     
-    @IBAction func jishi(sender: UIButton) {
-        
+    func tick2Down()
+    {
+        _time2 -= 1
+        let sec = _time2/60
+        daojishi.text = String(sec)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //获取数据库实例
         db = SQLiteDB.sharedInstance()
         //如果表还不存在则创建表（其中uid为自增主键）
-        //db.execute("delete from t_user")
-        db.execute("create table if not exists t_users(uid integer primary key,uname varchar(20),mobile varchar(20),yifoul varchar(20),erfoul varchar(20),yistop varchar(20),erstop varchar(20))")
+        //删除以前的表
+        //db.execute("drop table t_userss")
+        //db.execute("drop table t_users")
+        //db.execute("delete from t_userss")
+        //db.execute("delete from t_users")
+        db.execute("create table if not exists t_user(uid integer primary key,ci varchar(20),uname varchar(20),mobile varchar(20),yifoul varchar(20),erfoul varchar(20),yistop varchar(20),erstop varchar(20))")
         //如果有数据则加载
-        initUsers()
+        initUser()
+        
     }
     
     
@@ -155,34 +202,61 @@ class ViewController: UIViewController {
         foul2 = ""
         che1 = ""
         che2 = ""
+        cc = ""
     }
     
     
     //点击保存
     @IBAction func saveClicked(sender: AnyObject) {
-        saveUsers()
+        saveUser()
     }
     
     //从SQLite加载数据
-    func initUsers() {
-        let data = db.query("select * from t_users")
+    func initUser() {
+        let data = db.query("select * from t_user")
         if data.count > 0 {
             //获取最后一行数据显示
-            let users = data[data.count - 1]
-            mark1.text = users["uname"] as? String
-            mark2.text = users["mobile"] as? String
-            Yfoul.text = users["yifoul"] as? String
-            Efoul.text = users["erfoul"] as? String
-            Ystop.text = users["yistop"] as? String
-            Estop.text = users["erstop"] as? String
-
+            let user = data[data.count - 1]
+            chang.text = user["ci"] as? String
+            mark1.text = user["uname"] as? String
+            mark2.text = user["mobile"] as? String
+            Yfoul.text = user["yifoul"] as? String
+            Efoul.text = user["erfoul"] as? String
+            Ystop.text = user["yistop"] as? String
+            Estop.text = user["erstop"] as? String
+            //let a = user["yifoul"] as? String
+            //print(a)
         }
-        print("#####  \(data.count)")
-        print(data)
-            }
+    
+        var ji:String = ""
+        var lu:String = ""
+            for(var i=0;i<data.count;i++){
+            let user = data[i]
+                let c:String = (user["ci"] as? String)!
+                let m1:String = (user["uname"] as? String)!
+                let m2:String = (user["mobile"] as? String)!
+                let f1:String = (user["yifoul"] as? String)!
+                let f2:String = (user["erfoul"] as? String)!
+                let s1:String = (user["yistop"] as? String)!
+                let s2:String = (user["erstop"] as? String)!
+                //chang.text = c
+                //mark1.text = m1
+                //mark2.text = m2
+                //Yfoul.text = f1
+                //Efoul.text = f2
+                //Ystop.text = s1
+                //Estop.text = s2
+                ji = "\r"+"第"+c+"场"+"Team1 比分："+m1+"  犯规:"+f1+"  暂停:"+s1
+                lu = "第"+c+"场"+"Team2 比分："+m2+"  犯规:"+f2+"  暂停:"+s2
+                jilu.text! += ji+"\n"+lu
+              }
+                //print("#####  \(data.count)")
+        //print("#####")
+    }
     
     //保存数据到SQLite
-    func saveUsers() {
+    func saveUser() {
+        let ci = self.chang.text!
         let uname = self.mark1.text!
         let mobile = self.mark2.text!
         let yifoul = self.Yfoul.text!
@@ -192,7 +266,8 @@ class ViewController: UIViewController {
 
         //插入数据库，这里用到了esc字符编码函数，其实是调用bridge.m实现的
         //let sql = "insert into t_user(uname,mobile) values('\(uname)','\(mobile)')"
-        let sql = "insert into t_users(uname,mobile,yifoul,erfoul,yistop,erstop) values('\(uname)','\(mobile)','\(yifoul)','\(erfoul)','\(yistop)','\(erstop)')"
+        
+        let sql = "insert into t_user(ci,uname,mobile,yifoul,erfoul,yistop,erstop) values('\(ci)','\(uname)','\(mobile)','\(yifoul)','\(erfoul)','\(yistop)','\(erstop)')"
         print("sql: \(sql)")
         //通过封装的方法执行sql
         let result = db.execute(sql)
