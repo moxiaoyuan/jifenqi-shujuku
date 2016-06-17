@@ -19,6 +19,11 @@
 		C817EC101CE4210000507E90 /* SQLTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C817EC0D1CE4210000507E90 /* SQLTable.swift */; };
 		C817EC111CE4210000507E90 /* String-Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C817EC0E1CE4210000507E90 /* String-Extras.swift */; };
 		C817EC131CE4211300507E90 /* data.db in Resources */ = {isa = PBXBuildFile; fileRef = C817EC121CE4211300507E90 /* data.db */; };
+		C855B4741CF693E70033C997 /* Foul.swift in Sources */ = {isa = PBXBuildFile; fileRef = C855B4731CF693E70033C997 /* Foul.swift */; };
+		C855B4781CF6987C0033C997 /* Jishi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C855B4771CF6987C0033C997 /* Jishi.swift */; };
+		C855B47A1CF698F50033C997 /* Choose.swift in Sources */ = {isa = PBXBuildFile; fileRef = C855B4791CF698F50033C997 /* Choose.swift */; };
+		C855B47C1CF6B0DD0033C997 /* Sql.swift in Sources */ = {isa = PBXBuildFile; fileRef = C855B47B1CF6B0DD0033C997 /* Sql.swift */; };
+		C8DE3FE01CF58FB0005530D0 /* A.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DE3FDF1CF58FB0005530D0 /* A.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +63,11 @@
 		C817EC0D1CE4210000507E90 /* SQLTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLTable.swift; sourceTree = "<group>"; };
 		C817EC0E1CE4210000507E90 /* String-Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-Extras.swift"; sourceTree = "<group>"; };
 		C817EC121CE4211300507E90 /* data.db */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.db; sourceTree = "<group>"; };
+		C855B4731CF693E70033C997 /* Foul.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foul.swift; sourceTree = "<group>"; };
+		C855B4771CF6987C0033C997 /* Jishi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jishi.swift; sourceTree = "<group>"; };
+		C855B4791CF698F50033C997 /* Choose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Choose.swift; sourceTree = "<group>"; };
+		C855B47B1CF6B0DD0033C997 /* Sql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sql.swift; sourceTree = "<group>"; };
+		C8DE3FDF1CF58FB0005530D0 /* A.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = A.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +128,11 @@
 				C817EBE31CE41FAD00507E90 /* LaunchScreen.storyboard */,
 				C817EBE61CE41FAD00507E90 /* Info.plist */,
 				C817EC0A1CE4203400507E90 /* Bridging-Header.h */,
+				C8DE3FDF1CF58FB0005530D0 /* A.swift */,
+				C855B4731CF693E70033C997 /* Foul.swift */,
+				C855B4771CF6987C0033C997 /* Jishi.swift */,
+				C855B4791CF698F50033C997 /* Choose.swift */,
+				C855B47B1CF6B0DD0033C997 /* Sql.swift */,
 			);
 			path = "jifenqi-shujuku";
 			sourceTree = "<group>";
@@ -283,10 +298,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C855B47C1CF6B0DD0033C997 /* Sql.swift in Sources */,
 				C817EC111CE4210000507E90 /* String-Extras.swift in Sources */,
 				C817EC0F1CE4210000507E90 /* SQLiteDB.swift in Sources */,
 				C817EC101CE4210000507E90 /* SQLTable.swift in Sources */,
+				C8DE3FE01CF58FB0005530D0 /* A.swift in Sources */,
 				C817EBDD1CE41FAD00507E90 /* ViewController.swift in Sources */,
+				C855B4781CF6987C0033C997 /* Jishi.swift in Sources */,
+				C855B4741CF693E70033C997 /* Foul.swift in Sources */,
+				C855B47A1CF698F50033C997 /* Choose.swift in Sources */,
 				C817EBDB1CE41FAD00507E90 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
